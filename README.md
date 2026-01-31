@@ -1,73 +1,99 @@
-# React + TypeScript + Vite
+# React Interview Starter
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a realistic React application designed to showcase essential front-end skills commonly evaluated in technical interviews. It simulates a Job Tracker with a focus on clean architecture, type safety, routing, and maintainable components.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Project Structure
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├─ app/
+│  └─ router.tsx
+├─ assets/
+│  └─ react.svg
+├─ features/
+│  └─ jobs/
+│     ├─ data.ts
+│     ├─ formatters.ts
+│     └─ types.ts
+├─ layouts/
+│  └─ MainLayout.tsx
+├─ pages/
+│  ├─ Home.tsx
+│  ├─ Jobs.tsx
+│  ├─ JobDetail.tsx
+│  └─ NotFound.tsx
+├─ App.tsx
+├─ main.tsx
+└─ index.css
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Routing Overview
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Routing is centralized in `src/app/router.tsx` for clear route management.
+- The application uses nested layout routing with `MainLayout` to maintain consistent navigation and layout across pages.
+- Dynamic routing is implemented for job details via the `/jobs/:id` path, enabling detailed views based on job identifiers.
+
+---
+
+## Data & Types
+
+- The typed domain model for jobs is defined in `features/jobs/types.ts` to ensure type safety.
+- Mock job data is provided in `features/jobs/data.ts` to simulate backend data.
+- Formatting utilities for job data are located in `features/jobs/formatters.ts` to keep data presentation consistent and reusable.
+
+---
+
+## Styling
+
+The project uses Tailwind CSS to apply utility-first styling, promoting rapid UI development with a consistent design system and minimal custom CSS.
+
+---
+
+## Features
+
+- React with TypeScript for type-safe development
+- Client-side routing with React Router and nested layouts
+- Typed domain models and mock data for realistic data handling
+- Utility-first styling using Tailwind CSS
+- Clean, feature-based project structure for scalability and maintainability
+
+---
+
+## Getting Started
+
+To run the project locally:
+
+```bash
+npm install
+npm run dev
 ```
+
+The application will be accessible at:
+
+```
+http://localhost:5173
+```
+
+---
+
+## Possible Next Steps
+
+- Implement search and filtering functionality for jobs
+- Integrate real API endpoints to replace mock data
+- Add global state management solutions
+- Develop forms for job application or saving jobs
+- Write unit and integration tests using React Testing Library
+
+---
+
+## Author
+
+Aldosimone Di Rosa  
+Frontend Developer (React / Angular)
+
+- GitHub: https://github.com/Aldosimone99  
+- LinkedIn: https://www.linkedin.com/in/aldosimone-di-rosa-b5a55716b/
