@@ -5,7 +5,7 @@ export default function Home() {
     <div className="space-y-8">
       <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-8">
         <p className="text-xs font-medium text-white/60">
-          Interview-ready starter
+          Interview-ready React project (Early–Mid level)
         </p>
 
         <h1 className="mt-3 text-3xl font-semibold tracking-tight">
@@ -13,9 +13,9 @@ export default function Home() {
         </h1>
 
         <p className="mt-3 max-w-2xl text-sm leading-6 text-white/70">
-          A small project that demonstrates real-world React skills: routing,
-          typed domain models, list/detail views, and (next) data fetching,
-          loading states, and reusable UI components.
+          A focused React project built to demonstrate real-world frontend skills
+          for early–mid level interviews: routing architecture, typed domain models,
+          list/detail flows, async data handling, and reusable UI patterns.
         </p>
 
         <div className="mt-6 flex flex-wrap gap-3">
@@ -27,21 +27,21 @@ export default function Home() {
           </Link>
 
           <a
-            href="https://github.com/"
+            href="https://github.com/Aldosimone99/react-interview-starter"
             target="_blank"
             rel="noreferrer"
             className="rounded-lg border border-white/15 bg-white/[0.02] px-4 py-2 text-sm font-semibold text-white hover:bg-white/[0.06]"
           >
-            GitHub Repo
+            View Source (GitHub)
           </a>
         </div>
       </section>
 
       <section className="grid gap-4 md:grid-cols-3">
         {[
-          { title: "Clean Routing", desc: "Layout + nested routes + 404." },
-          { title: "TypeScript Model", desc: "Typed Job entity shared across pages." },
-          { title: "Next Step", desc: "API fetching with loading/error states." },
+          { title: "Clean Routing Architecture", desc: "Layout, nested routes, and graceful 404 handling." },
+          { title: "Typed Domain Model", desc: "Strongly typed Job entity shared across features." },
+          { title: "Async Data Fetching", desc: "Loading, error, and success states via custom hooks." },
         ].map((card) => (
           <div
             key={card.title}
