@@ -1,99 +1,154 @@
 # React Interview Starter
 
-This project is a realistic React application designed to showcase essential front-end skills commonly evaluated in technical interviews. It simulates a Job Tracker with a focus on clean architecture, type safety, routing, and maintainable components.
+An **interview-ready React + TypeScript project** showcasing professional frontend patterns through a realistic Job Tracker app.
+
+**Best for:** Early–Mid level React interviews • Portfolio review • Learning modern React patterns
 
 ---
 
-## Project Structure
+## ⚡ Quick Pitch (30 seconds)
 
-```
+> A focused React project built to demonstrate real‑world frontend skills: feature‑based architecture, URL‑driven state, async data handling, and clean UI composition. The scope is intentional—optimized for explainability in interviews rather than feature bloat.
+
+---
+
+## 🎯 What This Project Demonstrates
+
+- Clean **feature-based architecture**
+- **URL-synced search, filters, and sorting**
+- **Custom hooks** for async data, debouncing, and persistence
+- Strong **TypeScript domain modeling**
+- Realistic **SaaS-style UI patterns** (cards, toolbars, sticky sidebars)
+- Thoughtful **edge-case handling** (loading, empty, not-found)
+
+---
+
+## 🧱 Tech Stack
+
+- **React** (Hooks, functional components)
+- **TypeScript** (strict, domain-driven types)
+- **React Router v6** (nested routes, dynamic params)
+- **Tailwind CSS** (utility-first, consistent design system)
+- **Vite** (fast dev server & build)
+
+---
+
+## 📁 Project Structure
+
+```txt
 src/
-├─ app/
-│  └─ router.tsx
-├─ assets/
-│  └─ react.svg
-├─ features/
-│  └─ jobs/
-│     ├─ data.ts
-│     ├─ formatters.ts
-│     └─ types.ts
-├─ layouts/
-│  └─ MainLayout.tsx
-├─ pages/
-│  ├─ Home.tsx
-│  ├─ Jobs.tsx
-│  ├─ JobDetail.tsx
-│  └─ NotFound.tsx
-├─ App.tsx
-├─ main.tsx
-└─ index.css
+├── components/ui/          # Reusable UI primitives (Card, Badge, Skeleton)
+├── features/jobs/          # Jobs domain (types, api, hooks, storage)
+│   ├── api.ts              # Mock API with AbortSignal support
+│   ├── data.ts             # Seed data
+│   ├── saved.ts            # localStorage helpers
+│   ├── types.ts            # Job & JobLevel types
+│   └── hooks/              # Domain-specific hooks
+├── hooks/                  # Shared generic hooks
+├── layouts/                # App layouts
+├── pages/                  # Route-level pages
+├── App.tsx                 # Router configuration
+├── main.tsx                # Entry point
+└── index.css               # Global styles
 ```
 
 ---
 
-## Routing Overview
+## 🧭 Core Features
 
-- Routing is centralized in `src/app/router.tsx` for clear route management.
-- The application uses nested layout routing with `MainLayout` to maintain consistent navigation and layout across pages.
-- Dynamic routing is implemented for job details via the `/jobs/:id` path, enabling detailed views based on job identifiers.
+### Job Listing
+- Search across title, company, location
+- Level filtering (All / Junior / Mid / Senior)
+- Sorting (Recent, Seniority)
+- Saved-only view with count
+- **All state synced to URL**
 
----
+### Job Detail
+- Dynamic route: `/jobs/:id`
+- Save / Unsave job
+- Personal notes (persisted in `localStorage`)
+- Two-column layout with sticky actions sidebar
+- Breadcrumb navigation
 
-## Data & Types
-
-- The typed domain model for jobs is defined in `features/jobs/types.ts` to ensure type safety.
-- Mock job data is provided in `features/jobs/data.ts` to simulate backend data.
-- Formatting utilities for job data are located in `features/jobs/formatters.ts` to keep data presentation consistent and reusable.
-
----
-
-## Styling
-
-The project uses Tailwind CSS to apply utility-first styling, promoting rapid UI development with a consistent design system and minimal custom CSS.
-
----
-
-## Features
-
-- React with TypeScript for type-safe development
-- Client-side routing with React Router and nested layouts
-- Typed domain models and mock data for realistic data handling
-- Utility-first styling using Tailwind CSS
-- Clean, feature-based project structure for scalability and maintainability
+### Navigation & UX
+- Persistent layout with nested routing
+- Graceful 404 page
+- Loading skeletons
+- Empty states
 
 ---
 
-## Getting Started
+## 🧠 Key React Patterns Used
 
-To run the project locally:
+- **Derived state** with `useMemo`
+- **Async handling** via a custom `useAsync` hook
+- **AbortController** to prevent race conditions
+- **Debounced inputs** for performance
+- **Type-driven UI decisions**
+
+---
+
+## 🔐 Data Persistence
+
+Saved jobs and notes are stored locally:
+
+```ts
+// saved jobs
+{ "1": true, "3": true }
+
+// notes
+{ "1": "Interesting role", "3": "Follow up" }
+```
+
+---
+
+## 🧪 Edge Cases Covered
+
+- No results
+- Saved-only empty state
+- Invalid job ID
+- Loading & error states
+
+---
+
+## 🚀 Getting Started
 
 ```bash
+git clone https://github.com/Aldosimone99/react-interview-starter.git
+cd react-interview-starter
 npm install
 npm run dev
 ```
 
-The application will be accessible at:
-
-```
-http://localhost:5173
-```
+Open: http://localhost:5173
 
 ---
 
-## Possible Next Steps
+## 🎤 Interview Talking Points
 
-- Implement search and filtering functionality for jobs
-- Integrate real API endpoints to replace mock data
-- Add global state management solutions
-- Develop forms for job application or saving jobs
-- Write unit and integration tests using React Testing Library
+- **Why URL-driven state:** shareable links, browser navigation
+- **Why feature folders:** scalability & ownership
+- **Why custom hooks:** reuse & separation of concerns
+- **Why mock API:** realistic async flows without backend noise
 
 ---
 
-## Author
+## 🛣️ Possible Next Steps
 
-Aldosimone Di Rosa  
-Frontend Developer (React / Angular)
+- Add dates/salary to jobs
+- Replace mock API with real backend
+- Add tests (RTL + Vitest)
+- Accessibility audit
 
-- GitHub: https://github.com/Aldosimone99  
+---
+
+## 👤 Author
+
+**Aldosimone Di Rosa** — Frontend Developer (React / Angular)
+
+- GitHub: https://github.com/Aldosimone99
 - LinkedIn: https://www.linkedin.com/in/aldosimone-di-rosa-b5a55716b/
+
+---
+
+**Status:** Interview-ready • Actively maintained
