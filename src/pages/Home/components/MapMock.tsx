@@ -1,20 +1,38 @@
 export default function MapMock() {
   return (
-     <div className="relative h-[calc(100vh-140px)] min-h-[640px] w-full bg-gradient-to-br from-neutral-100 to-neutral-200">
+    <div className="relative h-[calc(100vh-140px)] min-h-[640px] w-full bg-gradient-to-br from-neutral-100 to-neutral-200">
+      {/* Top toolbar */}
+      <div className="absolute left-4 right-4 top-4 z-10 flex items-center justify-between">
+        <div className="flex items-center gap-2 rounded-2xl border border-neutral-200 bg-white/80 px-3 py-2 text-xs text-neutral-700 shadow-sm backdrop-blur">
+          <span className="font-medium">Mappa</span>
+          <span className="text-neutral-400">•</span>
+          <span className="text-neutral-500">Milano</span>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button className="rounded-2xl border border-neutral-200 bg-white/80 px-3 py-2 text-xs font-medium text-neutral-800 shadow-sm backdrop-blur hover:bg-white">
+            Filtri
+          </button>
+          <button className="rounded-2xl border border-neutral-200 bg-white/80 px-3 py-2 text-xs font-medium text-neutral-800 shadow-sm backdrop-blur hover:bg-white">
+            Vicino a me
+          </button>
+        </div>
+      </div>
+
       {/* Fake map grid */}
-      <div className="absolute inset-0 opacity-40">
+      <div className="absolute inset-0 opacity-35">
         <div className="h-full w-full bg-[radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.08)_1px,transparent_0)] [background-size:28px_28px]" />
       </div>
 
       {/* Pins */}
-      <Pin x="20%" y="28%" />
-      <Pin x="48%" y="35%" />
-      <Pin x="70%" y="22%" />
-      <Pin x="62%" y="58%" />
-      <Pin x="30%" y="62%" />
+      <Pin x="22%" y="30%" />
+      <Pin x="49%" y="38%" />
+      <Pin x="76%" y="24%" />
+      <Pin x="64%" y="60%" />
+      <Pin x="32%" y="66%" />
 
       {/* Floating card */}
-      <div className="absolute bottom-6 left-6 right-6 max-w-[520px] rounded-2xl border border-neutral-200 bg-white p-4 shadow-lg">
+      <div className="absolute bottom-6 left-6 right-6 max-w-[560px] rounded-2xl border border-neutral-200 bg-white p-4 shadow-lg">
         <div className="flex items-start gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
             ➕

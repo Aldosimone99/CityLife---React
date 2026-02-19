@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+import { paths } from "../../../routes/paths";
+
 type Category = {
   title: string;
   icon: string;
@@ -14,12 +17,15 @@ const categories: Category[] = [
   { title: "Altri servizi", icon: "🛠️", subtitle: "Tutto il resto", gradient: "from-indigo-500 to-violet-400", slug: "servizi" },
 ];
 
+const DEFAULT_CITY_SLUG = "milano";
+
 export default function CategoryGrid() {
   return (
     <div className="grid grid-cols-2 gap-4">
       {categories.map((c) => (
-        <button
+        <Link
           key={c.slug}
+          to={paths.category(DEFAULT_CITY_SLUG, c.slug)}
           className="group relative flex h-28 w-full flex-col justify-between overflow-hidden rounded-2xl border border-neutral-200 bg-white p-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
         >
           <div className="flex items-center justify-between">
@@ -38,7 +44,7 @@ export default function CategoryGrid() {
 
           {/* Glow */}
           <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-neutral-100 opacity-0 blur-2xl transition group-hover:opacity-100" />
-        </button>
+        </Link>
       ))}
     </div>
   );

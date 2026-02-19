@@ -5,7 +5,7 @@ import MapMock from "./components/MapMock";
 
 export default function HomePage() {
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[440px_1fr]">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[420px_1fr]">
       {/* LEFT */}
       <div className="space-y-6">
         <Card className="p-5">
