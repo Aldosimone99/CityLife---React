@@ -1,6 +1,6 @@
 export default function MapMock() {
   return (
-    <div className="relative h-[640px] w-full bg-gradient-to-br from-neutral-100 to-neutral-200">
+     <div className="relative h-[calc(100vh-140px)] min-h-[640px] w-full bg-gradient-to-br from-neutral-100 to-neutral-200">
       {/* Fake map grid */}
       <div className="absolute inset-0 opacity-40">
         <div className="h-full w-full bg-[radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.08)_1px,transparent_0)] [background-size:28px_28px]" />

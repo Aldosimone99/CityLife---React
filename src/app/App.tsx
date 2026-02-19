@@ -1,10 +1,13 @@
+import { BrowserRouter } from "react-router-dom";
 import Shell from "./layout/Shell";
-import HomePage from "../pages/Home/HomePage";
+import AppRoutes from "../routes/AppRoutes";
 
 export default function App() {
   return (
-    <Shell>
-      <HomePage />
-    </Shell>
+    <BrowserRouter>
+      <Shell>
+        <AppRoutes />
+      </Shell>
+    </BrowserRouter>
   );
 }

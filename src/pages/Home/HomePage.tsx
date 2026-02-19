@@ -29,9 +29,11 @@ export default function HomePage() {
       </div>
 
       {/* RIGHT */}
-      <Card className="relative overflow-hidden">
-        <MapMock />
-      </Card>
+      <div className="lg:sticky lg:top-[84px]">
+  <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
+    <MapMock />
+  </div>
+</div>
     </div>
   );
 }
