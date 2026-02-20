@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef } from "react";
 import maplibregl, { type Map as MapLibreMap } from "maplibre-gl";
-import { findCityBySlug } from "../data/cities-it";
 
 // =============================
 // MAP STYLE CONFIGURATION
@@ -20,22 +19,39 @@ const MAP_STYLE: string = MAPTILER_KEY
 // TYPES
 // =============================
 
-type Props = {
-  citySlug?: string;
+export type LngLat = {
+  lng: number;
+  lat: number;
 };
 
-// Fallback city (Milano) if slug not found
-const FALLBACK_CITY = {
-  lng: 9.19,
-  lat: 45.4642,
-  zoom: 12,
+type Props = {
+  // Map center (required)
+  center: LngLat;
+
+  // Zoom level (optional)
+  zoom?: number;
+
+  // Animate when center/zoom changes
+  animate?: boolean;
+
+  // Show a marker at the center
+  showCenterMarker?: boolean;
+
+  // Optional: override container height classes
+  className?: string;
 };
 
 // =============================
 // COMPONENT
 // =============================
 
-export default function CityMap({ citySlug }: Props) {
+export default function CityMap({
+  center,
+  zoom = 12,
+  animate = true,
+  showCenterMarker = true,
+  className = "h-[calc(100vh-140px)] min-h-[640px] w-full",
+}: Props) {
   // -----------------------------
   // REFS
   // -----------------------------
@@ -46,27 +62,18 @@ export default function CityMap({ citySlug }: Props) {
   // Map instance reference
   const mapRef = useRef<MapLibreMap | null>(null);
 
-  // Marker reference (center marker)
+  // Marker reference (optional center marker)
   const markerRef = useRef<maplibregl.Marker | null>(null);
 
   // -----------------------------
-  // DERIVED CITY DATA
+  // DERIVED VIEW STATE
   // -----------------------------
 
-  // Compute city coordinates from slug
-  const city = useMemo(() => {
-    if (!citySlug) return FALLBACK_CITY;
-
-    const found = findCityBySlug(citySlug);
-
-    if (!found) return FALLBACK_CITY;
-
-    return {
-      lng: found.lng,
-      lat: found.lat,
-      zoom: 12,
-    };
-  }, [citySlug]);
+  // Keep a stable view object for effects
+  const view = useMemo(
+    () => ({ lng: center.lng, lat: center.lat, zoom }),
+    [center.lng, center.lat, zoom]
+  );
 
   // -----------------------------
   // INITIAL MAP CREATION (RUNS ONCE)
@@ -79,8 +86,8 @@ export default function CityMap({ citySlug }: Props) {
     const map = new maplibregl.Map({
       container: containerRef.current,
       style: MAP_STYLE,
-      center: [city.lng, city.lat],
-      zoom: city.zoom,
+      center: [view.lng, view.lat],
+      zoom: view.zoom,
     });
 
     // Warn developer if MapTiler key missing
@@ -96,10 +103,12 @@ export default function CityMap({ citySlug }: Props) {
       "top-right"
     );
 
-    // Create center marker
-    markerRef.current = new maplibregl.Marker({ color: "#0284c7" })
-      .setLngLat([city.lng, city.lat])
-      .addTo(map);
+    // Create center marker (optional)
+    if (showCenterMarker) {
+      markerRef.current = new maplibregl.Marker({ color: "#0284c7" })
+        .setLngLat([view.lng, view.lat])
+        .addTo(map);
+    }
 
     mapRef.current = map;
 
@@ -110,33 +119,52 @@ export default function CityMap({ citySlug }: Props) {
       markerRef.current = null;
       mapRef.current = null;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // -----------------------------
-  // UPDATE MAP WHEN CITY CHANGES
+  // UPDATE MAP WHEN CENTER/ZOOM CHANGES
   // -----------------------------
 
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
 
-    // Animate camera to new city
-    map.flyTo({
-      center: [city.lng, city.lat],
-      zoom: city.zoom,
-      duration: 900,
-    });
+    // Animate camera to new center
+    if (animate) {
+      map.flyTo({
+        center: [view.lng, view.lat],
+        zoom: view.zoom,
+        duration: 900,
+      });
+    } else {
+      map.jumpTo({
+        center: [view.lng, view.lat],
+        zoom: view.zoom,
+      });
+    }
 
-    // Move marker to new city
-    markerRef.current?.setLngLat([city.lng, city.lat]);
-  }, [city]);
+    // Move marker to new center
+    if (showCenterMarker) {
+      if (!markerRef.current) {
+        markerRef.current = new maplibregl.Marker({ color: "#0284c7" })
+          .setLngLat([view.lng, view.lat])
+          .addTo(map);
+      } else {
+        markerRef.current.setLngLat([view.lng, view.lat]);
+      }
+    } else {
+      markerRef.current?.remove();
+      markerRef.current = null;
+    }
+  }, [view, animate, showCenterMarker]);
 
   // -----------------------------
   // RENDER
   // -----------------------------
 
   return (
-    <div className="h-[calc(100vh-140px)] min-h-[640px] w-full">
+    <div className={className}>
       {/* Map container element */}
       <div ref={containerRef} className="h-full w-full" />
     </div>

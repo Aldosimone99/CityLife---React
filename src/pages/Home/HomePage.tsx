@@ -2,12 +2,12 @@ import { Card } from "../../shared/components/Card";
 import CategoryGrid from "./components/CategoryGrid";
 import NearbyList from "./components/NearbyList";
 import CityMap from "../../shared/components/CityMap";
+import type { LngLat } from "../../shared/components/CityMap";
 
 export default function HomePage({
-  citySlug,
+  center,
 }: {
-  citySlug: string;
-  onCityChange: (slug: string) => void;
+  center: LngLat;
 }) {
   return (
     // Main layout: 2 columns (sidebar + map)
@@ -62,7 +62,7 @@ export default function HomePage({
       <div className="lg:sticky lg:top-[84px]">
         {/* Map container card */}
         <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
-          <CityMap citySlug={citySlug} />
+          <CityMap center={center} zoom={12} />
         </div>
       </div>
     </div>
