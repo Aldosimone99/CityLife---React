@@ -1,26 +1,23 @@
-import { useParams, Link } from "react-router-dom";
-import { paths } from "../../routes/paths";
+import { useParams } from "react-router-dom";
+import CityMap from "../../shared/components/CityMap";
 
 export default function CityHomePage() {
-  const { citySlug = "milano" } = useParams();
+  const { citySlug } = useParams();
 
   return (
-    <div className="space-y-4">
-      <h1 className="text-2xl font-semibold">CityLife • {citySlug}</h1>
-      <p className="text-sm text-neutral-600">
-        Questa è la home della città. Qui metteremo categorie + “vicino a te”.
-      </p>
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[420px_1fr]">
+      <div className="space-y-6">
+        {/* ...sidebar / categorie / vicino a te... */}
+        <div className="rounded-2xl border bg-white p-5 shadow-sm">
+          <h1 className="text-xl font-semibold">CityLife • {citySlug}</h1>
+          <p className="mt-1 text-sm text-neutral-600">Mappa reale centrata sulla città.</p>
+        </div>
+      </div>
 
-      <div className="flex flex-wrap gap-2">
-        <Link className="rounded-xl border px-3 py-2 text-sm" to={paths.category(citySlug, "farmacie")}>
-          Farmacie
-        </Link>
-        <Link className="rounded-xl border px-3 py-2 text-sm" to={paths.category(citySlug, "distributori")}>
-          Distributori
-        </Link>
-        <Link className="rounded-xl border px-3 py-2 text-sm" to={paths.search(citySlug) + "?q=farmacia"}>
-          Cerca “farmacia”
-        </Link>
+      <div className="lg:sticky lg:top-[84px]">
+        <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
+          <CityMap citySlug={citySlug} />
+        </div>
       </div>
     </div>
   );
