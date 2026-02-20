@@ -9,7 +9,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Shell citySlug={citySlug} onCityChange={setCitySlug}>
-        <AppRoutes citySlug={citySlug} />
+      <AppRoutes citySlug={citySlug} onCityChange={setCitySlug} />
       </Shell>
     </BrowserRouter>
   );

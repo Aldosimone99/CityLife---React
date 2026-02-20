@@ -6,10 +6,17 @@ import PlacePage from "../pages/Place/PlacePage";
 import SearchPage from "../pages/Search/SearchPage";
 import NotFoundPage from "../pages/NotFound/NotFoundPage";
 
-export default function AppRoutes({ citySlug }: { citySlug: string }) {
+export default function AppRoutes({
+  citySlug,
+  onCityChange,
+}: {
+  citySlug: string;
+  onCityChange: (slug: string) => void;
+}) {
   return (
     <Routes>
-      <Route path="/" element={<HomePage citySlug={citySlug} />} />
+      <Route path="/" element={<HomePage citySlug={citySlug} onCityChange={onCityChange} />} />
+      ...
 
       <Route path="/c/:citySlug" element={<CityHomePage />} />
       <Route path="/c/:citySlug/search" element={<SearchPage />} />
