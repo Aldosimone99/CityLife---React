@@ -9,10 +9,10 @@ import maplibregl, { type Map as MapLibreMap } from "maplibre-gl";
 const MAPTILER_KEY = import.meta.env.VITE_MAPTILER_KEY as string | undefined;
 
 // Map style:
-// - If key exists → MapTiler Basic (Google-like streets)
+// - If key exists → MapTiler Streets (full roads + labels)
 // - If no key → fallback demo style
 const MAP_STYLE: string = MAPTILER_KEY
-  ? `https://api.maptiler.com/maps/basic-v2/style.json?key=${MAPTILER_KEY}`
+  ? `https://api.maptiler.com/maps/streets-v2/style.json?key=${MAPTILER_KEY}`
   : "https://demotiles.maplibre.org/style.json";
 
 // =============================
@@ -90,10 +90,31 @@ export default function CityMap({
       zoom: view.zoom,
     });
 
+    // Diagnostics: confirm style loads and surface style/network errors
+    map.once("load", () => {
+      // Useful when map is inside flex/sticky containers
+      map.resize();
+      console.info("[CityMap] map loaded", {
+        usingMapTiler: Boolean(MAPTILER_KEY),
+        style: MAP_STYLE,
+      });
+    });
+
+    map.on("error", (e) => {
+      // MapLibre error events include network/style errors
+      console.error("[CityMap] map error", e?.error ?? e);
+    });
+
+    map.on("styledata", () => {
+      // Fires when style is loaded/updated; handy to verify the style actually applied
+      // (avoid noisy logs by keeping it commented out)
+      // console.debug("[CityMap] styledata");
+    });
+
     // Warn developer if MapTiler key missing
     if (!MAPTILER_KEY) {
       console.warn(
-        "[CityMap] VITE_MAPTILER_KEY missing: using fallback style. Add .env.local for full street detail."
+        "[CityMap] VITE_MAPTILER_KEY missing: using fallback style (may show limited details). Add .env.local with VITE_MAPTILER_KEY and restart the dev server."
       );
     }
 
