@@ -1,0 +1,14 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_DB: citylife
+      POSTGRES_USER: citylife
+      POSTGRES_PASSWORD: citylife
+    ports:
+      - "5432:5432"
+    volumes:
+      - citylife_pg:/var/lib/postgresql/data
+
+volumes:
+  citylife_pg:
